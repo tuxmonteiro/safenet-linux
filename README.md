@@ -4,16 +4,25 @@
 
 How to configure SafeNet eToken in Linux
 
-### Prerequiste
-
-* Safenet Authenfication Client >= 10.0 installed
-* libnss3 and modutil (libnss3-tools)
-
 ### Tested On
 
-* Ubuntu 18.04 (working on Chrome and Firefox)
-* Ubuntu 20.04 (not working yet)
-* Archlinux
+* Ubuntu 22.04
+* Ubuntu 24.10
+
+### Install pcscd and libnss3-tools
+
+```bash
+sudo apt install --yes pcscd libnss3-tools
+```
+
+### Download SafeNet eToken driver
+
+1. Download at ![SafeNet Drivers](https://support.globalsign.com/code-signing/safenet-drivers)
+2. Unzip
+3. Install
+```bash
+sudo dpkg -i ~/Downloads/GlobalSign-SAC-Ubuntu-2204/Ubuntu-2204/safenetauthenticationclient_10.8.1050_amd64.deb
+```
 
 ### Recover the safenet eToken lib path
 
@@ -30,13 +39,13 @@ We will use the `/usr/lib/libeToken.so.10` for the example
 
 ## How to configure Firefox
 
-Ppen Firefox and go to the security preferences (`about:preferences#privacy` in firefox navbar).
+Open Firefox and go to the security preferences (`about:preferences#privacy` in firefox navbar).
 
 At the end of the page, click on `Security Devices` and a new window will appear:
 
 ![security devices](images/security-devices.png)
 
-Click on Load and enter the following informations:
+Click on Load and enter the following information:
 
 * Module name: eToken PCKS#11 module
 * Module Filename: `/usr/lib/libeToken.so.10`
@@ -55,10 +64,8 @@ modutil -dbdir sql:.pki/nssdb/ -add "eToken" -libfile /usr/lib/libeToken.so.10 #
 modutil -dbdir sql:.pki/nssdb/ -list # Check if the token appears in the list
 ```
 
-If an error appear "NO DB FOUND", create the db:
+If the "NO DB FOUND" error appers, create the db before and repeat last step:
 ```
 mkdir -p ~/.pki/nssdb
 modutil -dbdir sql:.pki/nssdb/ -create
 ```
-
-Chromium is now configured

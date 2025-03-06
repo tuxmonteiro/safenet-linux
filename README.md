@@ -17,7 +17,7 @@ sudo apt install --yes pcscd libnss3-tools
 
 ### Download SafeNet eToken driver
 
-1. Download at ![SafeNet Drivers](https://support.globalsign.com/code-signing/safenet-drivers)
+1. Download at [SafeNet Drivers](https://support.globalsign.com/code-signing/safenet-drivers)
 2. Unzip
 3. Install
 ```bash
